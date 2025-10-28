@@ -112,6 +112,7 @@ while True:
                         print(f"Archivo: {archivo}")
                         print("========================================")
                         print(f"# de Caracteres: {len(contenido)}")
+                        print(f"# de Caracteres sin Espacios: {len(contenido.replace(" ",""))}")
                         print(f"# de Palabras: {len(contenido.split())}")
                         print("========================================")
 
@@ -197,17 +198,13 @@ while True:
                             if letra in vocales:
                                 vocales[letra] += 1
                         
-                        print(f"{'='*50}")
+                        print("==============================================")
                         print(f"Histograma de vocales - Archivo: {archivo}")
-                        print(f"{'='*50}")
-                        
-                        for vocal, cantidad in vocales.items():
-                            barra = '*' * cantidad
-                            print(f"{vocal.upper()}: {barra} ({cantidad})")
-                        
-                        print(f"{'='*50}")
+                        print("==============================================")
+                        print("Generando grafico con MatPlotLib...")        
+                        print("==============================================")
                         print(f"Total de vocales: {sum(vocales.values())}")
-                        print(f"{'='*50}")
+                        print("==============================================")
 
                         vocales_list = list(vocales.keys())
                         cantidades = list(vocales.values())
@@ -240,7 +237,64 @@ while True:
 
             match opcion_c:
                 case "1":
-                    print("Hola")
+                    print("=========================")
+                    print("Mostrar 15 primeras filas")
+                    print("=========================")
+                    archivos = os.listdir(".")
+                    archivos_csv = []
+
+                    for f in archivos:
+                        if f.endswith(".csv"):
+                            archivos_csv.append(f)
+
+                    if not archivos_csv:
+                        print("No se encontraron archivos .csv")
+                    else:
+                        for i, f in enumerate(archivos_csv, 1):
+                            print(f"{i}. {f}")
+
+                        num = int(input("Selecciona un archivo: "))
+                        archivo = archivos_csv[num - 1]
+
+                        with open(archivo, "r", encoding="utf-8") as f:
+                            lector = csv.reader(f)
+
+                            print("=============================")
+                            print("Primeras 15 filas del archivo")
+                            print("=============================")
+
+                            for i, fila in enumerate(lector):
+                                if i < 15:
+                                    print(f"Fila {i+1}: {fila}")
+                                else:
+                                    break
+                                
+                            print("=============================")
+                
+                case "2":
+                    print("=================================")
+                    print("Calcular estadisticas del archivo")
+                    print("=================================")
+                    archivos = os.listdir(".")
+                    archivos_csv = []
+
+                    for f in archivos:
+                        if f.endswith(".csv"):
+                            archivos_csv.append(f)
+
+                    if not archivos_csv:
+                        print("No se encontraron archivos .csv")
+                    else:
+                        for i, f in enumerate(archivos_csv, 1):
+                            print(f"{i}. {f}")
+                        
+                        num = int(input("Selecciona un archivo: "))
+                        archivo = archivos_csv[num - 1]
+
+                        with open(archivo, "r", encoding="utf-8") as f:
+                            lector = csv.reader(f)
+
+                            
 
         case "Q":
             print("Saliendo del programa...")
